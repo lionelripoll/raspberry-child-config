@@ -5,8 +5,8 @@ sudo apt update && sudo apt upgrade -y
 
 echo "Installation des applications éducatives et outils nécessaires..."
 sudo apt install -y \
-  gcompris tuxpaint scratch scratch2 scratch3 kturtle tuxmath tuxtype \
-  stellarium geogebra codeblocks audacity openshot pinta libreoffice \
+  gcompris tuxpaint scratch scratch2 scratch3 tuxmath \
+  stellarium geogebra openshot libreoffice \
   chromium-browser vlc gnome-software jq sqlite3 \
   logwatch msmtp msmtp-mta bsd-mailx auditd anacron
 
@@ -15,11 +15,6 @@ sudo adduser --gecos "" mathilde
 sudo deluser mathilde sudo
 sudo deluser mathilde adm
 sudo deluser mathilde lpadmin
-
-echo "Verrouillage de fichiers système..."
-sudo chmod o-rwx /root /etc /boot /bin /sbin /lib /lib64 /usr/sbin
-echo 'alias sudo="echo -e \"❌ Accès administrateur interdit pour cet utilisateur.\""' >> /home/mathilde/.bashrc
-sudo chown mathilde:mathilde /home/mathilde/.bashrc
 
 echo "Configuration DNS CleanBrowsing..."
 sudo sed -i '/^static domain_name_servers/d' /etc/dhcpcd.conf
