@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 echo "Installation des applications éducatives et outils nécessaires..."
 sudo apt install -y \
   gcompris tuxpaint scratch scratch2 scratch3 tuxmath \
-  stellarium geogebra openshot libreoffice \
+  stellarium libreoffice \
   chromium-browser vlc gnome-software jq sqlite3 \
   logwatch msmtp msmtp-mta bsd-mailx auditd anacron
 
