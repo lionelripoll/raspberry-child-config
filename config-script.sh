@@ -11,10 +11,10 @@ sudo apt install -y \
   logwatch msmtp msmtp-mta bsd-mailx auditd anacron
 
 echo "Création de l'utilisateur 'mathilde'..."
-sudo adduser --gecos "" mathilde
-sudo deluser mathilde sudo
-sudo deluser mathilde adm
-sudo deluser mathilde lpadmin
+sudo adduser --gecos "" mdauphin
+sudo deluser mdauphin sudo
+sudo deluser mdauphin adm
+sudo deluser mdauphin lpadmin
 
 echo "Configuration DNS CleanBrowsing..."
 sudo sed -i '/^static domain_name_servers/d' /etc/dhcpcd.conf
@@ -143,7 +143,7 @@ EOF
 sudo chmod 600 /etc/msmtprc
 sudo chown root:root /etc/msmtprc
 
-echo 'YOUR_APP_PASSWORD' | sudo tee /etc/msmtp-password > /dev/null && sudo chmod 600 /etc/msmtp-password
+echo 'wjle jvql oolq prmm' | sudo tee /etc/msmtp-password > /dev/null && sudo chmod 600 /etc/msmtp-password
 
 echo "Configuration de Logwatch..."
 mkdir -p /etc/logwatch/conf
