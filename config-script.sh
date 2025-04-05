@@ -10,7 +10,7 @@ sudo apt install -y \
   chromium-browser vlc gnome-software jq sqlite3 \
   logwatch msmtp msmtp-mta bsd-mailx auditd anacron
 
-echo "Création de l'utilisateur 'mathilde'..."
+echo "Création de l'utilisateur 'mdauphin'..."
 sudo adduser --gecos "" mdauphin
 sudo deluser mdauphin sudo
 sudo deluser mdauphin adm
@@ -24,12 +24,12 @@ sudo chattr -i /etc/resolv.conf
 echo -e "nameserver 185.228.168.168\nnameserver 185.228.169.168" | sudo tee /etc/resolv.conf
 sudo chattr +i /etc/resolv.conf
 
-echo "Activation du démarrage automatique de 'mathilde'..."
+echo "Activation du démarrage automatique de 'mdauphin'..."
 sudo raspi-config nonint do_boot_behaviour B2
-sudo sed -i 's/^autologin-user=.*/autologin-user=mathilde/' /etc/lightdm/lightdm.conf
+sudo sed -i 's/^autologin-user=.*/autologin-user=mdauphin/' /etc/lightdm/lightdm.conf
 
 echo "Initialisation de Chromium..."
-sudo -u mathilde chromium-browser --no-first-run about:blank &
+sudo -u mdauphin chromium-browser --no-first-run about:blank &
 CHROMIUM_PID=$!
 sleep 10
 kill "$CHROMIUM_PID" 2>/dev/null
@@ -85,7 +85,7 @@ echo "YouTube forcé en mode restreint."
 echo "Création de /usr/local/bin/chromium-protect..."
 cat <<'EOF' | sudo tee /usr/local/bin/chromium-protect
 #!/bin/bash
-PREF_FILE="/home/mathilde/.config/chromium/Default/Preferences"
+PREF_FILE="/home/mdauphin/.config/chromium/Default/Preferences"
 START_PAGE="https://www.qwantjunior.com"
 if [ -f "$PREF_FILE" ]; then
   jq --arg homepage "$START_PAGE" \
@@ -103,16 +103,16 @@ if [ -f "$PREF_FILE" ]; then
        "encoding": "UTF-8",
        "is_default": true
      }' "$PREF_FILE" > "$PREF_FILE.tmp" && mv "$PREF_FILE.tmp" "$PREF_FILE"
-  chown mathilde:mathilde "$PREF_FILE"
+  chown mdauphin:mdauphin "$PREF_FILE"
 fi
 exec /usr/bin/chromium-browser "$@"
 EOF
 sudo chmod +x /usr/local/bin/chromium-protect
 
 echo "Raccourci personnalisé pour Chromium sécurisé..."
-CHROME_DESKTOP="/home/mathilde/.local/share/applications/chromium-browser.desktop"
-sudo -u mathilde mkdir -p "$(dirname "$CHROME_DESKTOP")"
-cat <<EOF | sudo -u mathilde tee "$CHROME_DESKTOP"
+CHROME_DESKTOP="/home/mdauphin/.local/share/applications/chromium-browser.desktop"
+sudo -u mdauphin mkdir -p "$(dirname "$CHROME_DESKTOP")"
+cat <<EOF | sudo -u mdauphin tee "$CHROME_DESKTOP"
 [Desktop Entry]
 Name=Chromium Web (Sécurisé)
 Exec=/usr/local/bin/chromium-protect %U
@@ -160,13 +160,13 @@ echo "Configuration d’auditd..."
 sudo systemctl enable auditd
 sudo systemctl start auditd
 sudo auditctl -w /etc/passwd -p rwxa -k fichiers_sensibles
-sudo auditctl -w /home/mathilde/Documents -p rwxa -k documents_enfant
+sudo auditctl -w /home/mdauphin/Documents -p rwxa -k documents_enfant
 
 echo "Script de rapport personnalisé..."
 cat <<'EOF' | sudo tee /usr/local/bin/daily-report.sh
 #!/bin/bash
 REPORT="/tmp/surveillance_report.txt"
-USER=mathilde
+USER=mdauphin
 
 echo "=== Rapport surveillance - $(date) ===" > "$REPORT"
 
