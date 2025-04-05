@@ -143,7 +143,7 @@ EOF
 sudo chmod 600 /etc/msmtprc
 sudo chown root:root /etc/msmtprc
 
-echo 'wjle jvql oolq prmm' | sudo tee /etc/msmtp-password > /dev/null && sudo chmod 600 /etc/msmtp-password
+echo 'PASSWORD' | sudo tee /etc/msmtp-password > /dev/null && sudo chmod 600 /etc/msmtp-password
 
 echo "Configuration de Logwatch..."
 mkdir -p /etc/logwatch/conf
